@@ -1,0 +1,36 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+ #include <string.h>
+
+int* findWordsContaining(char** words, int wordsSize, char x, int* returnSize) {
+    char* word;
+    int* ans = malloc(sizeof(int));
+    int count = 0;
+    for (int i = 0; i < wordsSize; i++) {
+        word = words[i];
+        for (int j = 0; j < strlen(word) ; j++)
+        {
+            if (word[j] == x)
+            {
+                if (count == 0)
+                {
+                    ans[count] = i;
+                    count++;
+                    break;
+                }
+                else
+                {
+                    int* tmp = realloc(ans,(count+1)*sizeof(int));
+                    ans = tmp;
+                    ans[count] = i;
+                    count++;
+                    break;
+                }
+            }
+            
+        }
+    }
+    *returnSize = count;
+    return ans;
+}
